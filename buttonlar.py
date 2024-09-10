@@ -155,6 +155,11 @@ modavastil = InlineKeyboardMarkup(
     ]
 )
 
+orqagamiz = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="🔙Orqaga", callback_data="orqagamiz")]
+    ]
+)
 
 
 

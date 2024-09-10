@@ -480,7 +480,7 @@ async def tekingaberish(callback:CallbackQuery, state:FSMContext):
 
 @dp.callback_query(F.data=="tekingahayvonlar")
 async def tekingaberish(callback:CallbackQuery, state:FSMContext):
-    await state.update_data(heshtegim = " Tekinga_hayvonlar")    
+    await state.update_data(heshtegim = "Tekinga_hayvonlar")    
     await callback.message.answer(text= "Rasmini yuboring")
     await state.set_state(Info.pic)
 
@@ -866,22 +866,21 @@ async def info_ads_location(message: Message, state: FSMContext):
     phone_number = data.get("phone_number")
     heshteg = data.get("heshteg")
     heshtegim = data.get("heshtegim")
-    text = f"#{heshteg},\n#{heshtegim} \nTavsif: {model}\nXolati: {protsessor}\n💵 Narxi: {price}\n☎️ Telefon raqam: {phone_number}\n📍 Manzil: {location}\n👤 Username: <a href='tg://user?id={message.from_user.id}'>{message.from_user.first_name}</a>"
+    text = f"#{heshteg},\n#{heshtegim},\n#{location},\nTavsif: {model}\nXolati: {protsessor}\n💵 Narxi: {price}\n☎️ Telefon raqam: {phone_number}\n👤 Username: <a href='tg://user?id={message.from_user.id}'>{message.from_user.first_name}</a>"
     
+
     await bot.send_photo(chat_id=CHANNELS[0], photo=pic, caption=text, reply_markup=keyboard_button.confirmation, parse_mode='HTML')
     await message.answer("E'loningiz adminga yuborildi! \nAdmin ko'rib chiqib kanalga e'loningizni yuboradi.")
     await state.clear()
+
+
 
 @dp.message(Info.location)
 async def info_ads_location_del(message: Message):
     await message.answer(text="Manzilni to'g'ri kiriting!")
     await message.delete()
 
-#''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-
 # Finish________________________________--jadval offff_____________________________________________________________________________________________________________________
-#----------------------------------------------------
 @dp.callback_query(F.data=="False")
 async def confirmation (callback_query: CallbackQuery):
     await callback_query.message.delete()
@@ -929,32 +928,8 @@ async def off_startup_notify(bot: Bot):
         except Exception as err:
             logging.exception(err)
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------
-
-# class Database:
-#     def __init__(self, path_to_db="main.db"):
-#         self.connection = sqlite3.connect(path_to_db)
-#         self.cursor = self.connection.cursor()
-
-#     def create_table_users(self):
-#         self.cursor.execute("""CREATE TABLE IF NOT EXISTS users (
-#                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-#                                 full_name TEXT,
-#                                 telegram_id INTEGER UNIQUE,
-#                                 phone_number TEXT)""")
-#         self.connection.commit()
-
-#     def add_user(self, full_name, telegram_id, phone_number):
-#         with self.connection:
-#             return self.cursor.execute("INSERT INTO users (full_name, telegram_id, phone_number) VALUES (?, ?, ?)",
-#                                        (full_name, telegram_id, phone_number))
-
-#     def get_user(self, telegram_id):
-#         self.cursor.execute("SELECT * FROM users WHERE telegram_id = ?", (telegram_id,))
-#         return self.cursor.fetchone()
 
 
-#-------------------------------------------------------------------------------------------------------------------------------------------------
 async def main() -> None:
     global bot,db
     bot = Bot(TOKEN)
